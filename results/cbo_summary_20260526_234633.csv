@@ -1,0 +1,4 @@
+strategy,total_queries,pre_filter_chosen,post_filter_chosen,guardrail_decisions,mean_latency_ms,mean_recall,mean_reward,min_recall,max_latency_ms
+tier_based,2000,387,1613,182,4.4683,0.9449,0.7924,0.0,482.1098
+exponential_decay,2000,409,1591,182,2.9142,0.948,0.8137,0.0,100.0036
+softmax,2000,422,1578,182,4.4302,0.9456,0.7993,0.0,1042.1046

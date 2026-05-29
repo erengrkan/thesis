@@ -1,0 +1,30 @@
+# Data and Vectors
+data/
+indexes/
+index_data/
+.hf-cache/
+.hf-cache/_data/
+
+# Python Virtual Environment
+.venv/
+venv/
+env/
+.hf_cache/
+
+# Python Cache
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+.Python
+
+# OS generated files
+.DS_Store
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
+
+# IDEs
+.vscode/
+.idea/
