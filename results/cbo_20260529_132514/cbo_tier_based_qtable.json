@@ -1,0 +1,227 @@
+[
+  {
+    "bucket_id": "0.00-0.10",
+    "lower": 0.0,
+    "upper": 0.1,
+    "q_bitmap": 0.62881,
+    "q_post": 0.437796,
+    "visits_bitmap": 1236,
+    "visits_post": 264
+  },
+  {
+    "bucket_id": "0.10-0.12",
+    "lower": 0.1,
+    "upper": 0.12,
+    "q_bitmap": 1.0,
+    "q_post": 1.0,
+    "visits_bitmap": 0,
+    "visits_post": 0
+  },
+  {
+    "bucket_id": "0.12-0.14",
+    "lower": 0.12,
+    "upper": 0.14,
+    "q_bitmap": 0.634278,
+    "q_post": 0.52333,
+    "visits_bitmap": 223,
+    "visits_post": 277
+  },
+  {
+    "bucket_id": "0.14-0.16",
+    "lower": 0.14,
+    "upper": 0.16,
+    "q_bitmap": 0.381948,
+    "q_post": 0.54841,
+    "visits_bitmap": 139,
+    "visits_post": 361
+  },
+  {
+    "bucket_id": "0.16-0.18",
+    "lower": 0.16,
+    "upper": 0.18,
+    "q_bitmap": 0.526265,
+    "q_post": 0.749765,
+    "visits_bitmap": 71,
+    "visits_post": 429
+  },
+  {
+    "bucket_id": "0.18-0.20",
+    "lower": 0.18,
+    "upper": 0.2,
+    "q_bitmap": 0.489295,
+    "q_post": 0.800361,
+    "visits_bitmap": 70,
+    "visits_post": 430
+  },
+  {
+    "bucket_id": "0.20-0.22",
+    "lower": 0.2,
+    "upper": 0.22,
+    "q_bitmap": 0.391912,
+    "q_post": 0.645439,
+    "visits_bitmap": 70,
+    "visits_post": 430
+  },
+  {
+    "bucket_id": "0.22-0.24",
+    "lower": 0.22,
+    "upper": 0.24,
+    "q_bitmap": 0.327948,
+    "q_post": 0.702609,
+    "visits_bitmap": 47,
+    "visits_post": 453
+  },
+  {
+    "bucket_id": "0.24-0.26",
+    "lower": 0.24,
+    "upper": 0.26,
+    "q_bitmap": 0.027949,
+    "q_post": 0.884558,
+    "visits_bitmap": 34,
+    "visits_post": 466
+  },
+  {
+    "bucket_id": "0.26-0.28",
+    "lower": 0.26,
+    "upper": 0.28,
+    "q_bitmap": 0.281811,
+    "q_post": 0.877887,
+    "visits_bitmap": 31,
+    "visits_post": 469
+  },
+  {
+    "bucket_id": "0.28-0.30",
+    "lower": 0.28,
+    "upper": 0.3,
+    "q_bitmap": 1.0,
+    "q_post": 1.0,
+    "visits_bitmap": 0,
+    "visits_post": 0
+  },
+  {
+    "bucket_id": "0.30-0.32",
+    "lower": 0.3,
+    "upper": 0.32,
+    "q_bitmap": 0.10184,
+    "q_post": 0.738018,
+    "visits_bitmap": 52,
+    "visits_post": 948
+  },
+  {
+    "bucket_id": "0.32-0.34",
+    "lower": 0.32,
+    "upper": 0.34,
+    "q_bitmap": 0.046888,
+    "q_post": 0.889805,
+    "visits_bitmap": 33,
+    "visits_post": 467
+  },
+  {
+    "bucket_id": "0.34-0.36",
+    "lower": 0.34,
+    "upper": 0.36,
+    "q_bitmap": 1.0,
+    "q_post": 1.0,
+    "visits_bitmap": 0,
+    "visits_post": 0
+  },
+  {
+    "bucket_id": "0.36-0.41",
+    "lower": 0.36,
+    "upper": 0.41,
+    "q_bitmap": 0.05815,
+    "q_post": 0.933476,
+    "visits_bitmap": 27,
+    "visits_post": 473
+  },
+  {
+    "bucket_id": "0.41-0.46",
+    "lower": 0.41,
+    "upper": 0.46,
+    "q_bitmap": 1.0,
+    "q_post": 1.0,
+    "visits_bitmap": 0,
+    "visits_post": 0
+  },
+  {
+    "bucket_id": "0.46-0.51",
+    "lower": 0.46,
+    "upper": 0.51,
+    "q_bitmap": 1.0,
+    "q_post": 1.0,
+    "visits_bitmap": 0,
+    "visits_post": 0
+  },
+  {
+    "bucket_id": "0.51-0.56",
+    "lower": 0.51,
+    "upper": 0.56,
+    "q_bitmap": 1.0,
+    "q_post": 1.0,
+    "visits_bitmap": 0,
+    "visits_post": 0
+  },
+  {
+    "bucket_id": "0.56-0.61",
+    "lower": 0.56,
+    "upper": 0.61,
+    "q_bitmap": 1.0,
+    "q_post": 1.0,
+    "visits_bitmap": 0,
+    "visits_post": 0
+  },
+  {
+    "bucket_id": "0.61-0.66",
+    "lower": 0.61,
+    "upper": 0.66,
+    "q_bitmap": 0.001061,
+    "q_post": 0.886045,
+    "visits_bitmap": 65,
+    "visits_post": 935
+  },
+  {
+    "bucket_id": "0.66-0.71",
+    "lower": 0.66,
+    "upper": 0.71,
+    "q_bitmap": 0.003043,
+    "q_post": 0.867851,
+    "visits_bitmap": 55,
+    "visits_post": 945
+  },
+  {
+    "bucket_id": "0.71-0.76",
+    "lower": 0.71,
+    "upper": 0.76,
+    "q_bitmap": 0.003757,
+    "q_post": 0.84728,
+    "visits_bitmap": 53,
+    "visits_post": 947
+  },
+  {
+    "bucket_id": "0.76-0.80",
+    "lower": 0.76,
+    "upper": 0.8,
+    "q_bitmap": 0.003381,
+    "q_post": 0.697135,
+    "visits_bitmap": 54,
+    "visits_post": 946
+  },
+  {
+    "bucket_id": "0.80-0.90",
+    "lower": 0.8,
+    "upper": 0.9,
+    "q_bitmap": 2.4e-05,
+    "q_post": 0.886677,
+    "visits_bitmap": 101,
+    "visits_post": 1899
+  },
+  {
+    "bucket_id": "0.90-1.00",
+    "lower": 0.9,
+    "upper": 1.0,
+    "q_bitmap": 1.0,
+    "q_post": 0.918504,
+    "visits_bitmap": 0,
+    "visits_post": 1500
+  }
+]

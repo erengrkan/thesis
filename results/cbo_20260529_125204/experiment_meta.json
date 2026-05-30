@@ -1,0 +1,37 @@
+{
+  "timestamp": "20260529_125204",
+  "smoke_test": true,
+  "total_docs": 193761,
+  "num_queries": 50,
+  "num_filters": 3,
+  "n_epochs": 2,
+  "top_k": 10,
+  "r_target": 0.93,
+  "l_max": 20.0,
+  "beta": 10,
+  "alpha": 0.1,
+  "sigma_lower": 0.03,
+  "sigma_upper": 0.9,
+  "exploration_strategies": [
+    "tier_based",
+    "exponential_decay",
+    "softmax"
+  ],
+  "filters": [
+    {
+      "name": "main_cat IN ('Computers', 'Tools & Home Improvement')",
+      "target_sel": 0.05,
+      "actual_sel": 0.050727442571002423
+    },
+    {
+      "name": "brand='Tiffen'",
+      "target_sel": 0.07,
+      "actual_sel": 0.07303327294966479
+    },
+    {
+      "name": "main_cat='Home Audio &amp; Theater' AND overall>=3.0",
+      "target_sel": 0.09,
+      "actual_sel": 0.09223734394434381
+    }
+  ]
+}

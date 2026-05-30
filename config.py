@@ -44,3 +44,17 @@ POST_FILTER_EXPANSION = 100     # Post-filter: top_k × expansion_factor
 
 # ── Bitmap İndeks Alanları ─────────────────────────────────────────────────────
 BITMAP_FIELDS = ["main_cat", "brand", "overall", "verified"]
+
+# ── CBO (Contextual Bandit Optimizer) ──────────────────────────────────────────
+CBO_R_TARGET       = 0.93      # Recall target for Soft Cliff SLA
+CBO_L_MAX          = 20.0      # Max acceptable latency (ms) — must be < brute force
+CBO_BETA           = 10        # Recall penalty exponent (shock absorber)
+CBO_ALPHA          = 0.1       # TD learning rate
+CBO_SIGMA_LOWER    = 0.03      # Lower guardrail: force bitmap below this
+CBO_SIGMA_UPPER    = 0.90      # Upper guardrail: force postfilter above this
+CBO_CROSSOVER_HINT = 0.25      # Initial crossover estimate for bucket layout
+CBO_N_EPOCHS       = 10        # Number of training epochs
+CBO_EPSILON_MAX    = 0.3       # Max exploration rate (Exponential Decay)
+CBO_DECAY_K        = 5.0       # Decay constant (Exponential Decay)
+CBO_TAU_INIT       = 0.1       # Initial Softmax temperature
+CBO_TOP_K          = 10        # Fixed top-K for CBO benchmark
