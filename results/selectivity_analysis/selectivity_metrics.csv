@@ -1,0 +1,31 @@
+selectivity_pct,filter_name,pf_latency_ms,pf_recall,idsel_latency_ms,idsel_recall,bitmap_bf_latency_ms,bitmap_bf_recall
+5.01,"main_cat IN ('Computers', 'Cell Phones &amp; Accessories')",0.97,0.874,1.01,0.882,6.31,0.98
+7.13,verified=false AND overall<=3.0,0.93,0.754,1.65,0.786,12.4,0.9955
+9.24,"main_cat IN ('Camera &amp; Photo', 'Car Electronics')",0.95,0.884,1.51,0.898,10.97,0.978
+11.95,verified=false AND overall<=4.0,0.88,0.9256,2.16,0.9256,19.28,0.996
+14.12,"main_cat IN ('Camera & Photo', 'Car Electronics')",0.91,0.906,1.99,0.91,16.66,0.984
+16.0,"main_cat IN ('Home Audio &amp; Theater', 'Computers', 'Cell Phones &amp; Accessories')",0.89,0.928,2.23,0.936,19.02,0.96
+18.04,"main_cat IN ('Camera & Photo', 'Computers', 'Car Electronics')",0.89,0.926,2.35,0.934,21.24,0.964
+21.24,"main_cat IN ('Camera & Photo', 'Camera &amp; Photo')",1.45,0.88,2.46,0.89,25.09,0.958
+23.09,"main_cat IN ('Home Audio &amp; Theater', 'Camera &amp; Photo', 'Computers')",1.59,0.95,2.79,0.952,31.01,0.96
+25.12,"main_cat IN ('Camera & Photo', 'Home Audio &amp; Theater', 'Car Electronics')",0.95,0.936,2.96,0.944,31.15,0.96
+27.08,"main_cat IN ('Home Audio & Theater', 'Computers')",1.14,0.928,3.48,0.928,33.95,0.96
+29.92,"main_cat IN ('All Electronics', 'Books', 'Sports & Outdoors')",1.69,0.95,3.58,0.954,38.67,0.96
+32.02,"main_cat IN ('All Electronics', 'Musical Instruments', 'Books')",2.01,0.934,3.77,0.938,48.11,0.96
+34.16,"main_cat IN ('Home Audio & Theater', 'Home Audio &amp; Theater')",3.66,0.938,3.85,0.938,51.37,0.96
+39.19,"main_cat IN ('All Electronics', 'Home Audio &amp; Theater', 'Car Electronics')",0.94,0.938,4.26,0.938,45.09,0.96
+60.83,verified=true AND overall>=4.0,1.5,0.95,7.21,0.954,78.91,0.958
+66.13,verified=true AND overall>=3.0,3.11,0.948,7.15,0.952,97.74,0.956
+67.53,"overall IN (3,5)",0.9,0.948,7.11,0.95,80.16,0.958
+70.13,"overall IN (1,5)",5.3,0.952,7.89,0.956,105.79,0.956
+72.59,"overall IN (2,3,5)",3.29,0.952,7.29,0.954,98.6,0.96
+75.18,"overall IN (1,2,5)",6.55,0.956,7.68,0.96,103.85,0.958
+77.37,"overall IN (1,3,5)",5.66,0.954,7.25,0.956,121.56,0.96
+77.87,overall>=4.0,0.96,0.952,7.05,0.954,88.29,0.958
+82.42,"overall IN (1,2,3,5)",3.26,0.954,7.74,0.956,113.95,0.96
+82.92,"overall IN (2,4,5)",3.48,0.954,7.49,0.956,107.75,0.958
+85.11,overall>=3.0,0.9,0.95,7.21,0.954,94.3,0.958
+87.71,"overall IN (1,4,5)",3.89,0.952,7.65,0.954,138.67,0.958
+90.16,overall>=2.0,4.42,0.95,7.78,0.954,136.0,0.958
+92.76,"overall IN (1,2,4,5)",2.73,0.952,7.61,0.954,129.66,0.958
+94.95,"overall IN (1,3,4,5)",1.38,0.95,7.78,0.954,118.08,0.958
