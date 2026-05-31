@@ -391,3 +391,81 @@ class BitmapPreFilter(FilterStrategy):
             total_time_ms=filter_ms + search_ms,
             candidates_after_filter=n_candidates,
         )
+
+
+# ═══════════════════════════════════════════════════════════════════════════════
+#  Strategy 5 — Bitmap + HNSW IDSelector Pre-Filter
+# ═══════════════════════════════════════════════════════════════════════════════
+
+class BitmapHNSWPreFilter(FilterStrategy):
+    """Roaring Bitmap lookup → HNSW search with IDSelector constraint.
+
+    1. Resolve matching document IDs via bitmap set operations (µs).
+    2. Build a FAISS IDSelectorBatch from the matching IDs.
+    3. Search HNSW with the IDSelector — the graph is traversed normally
+       but only nodes passing the selector are considered as results.
+
+    This is the "proper" pre-filter approach: it uses the HNSW graph
+    structure (O(log N) traversal) instead of brute-force on the subset.
+    """
+
+    name = "bitmap_hnsw_prefilter"
+
+    def __init__(
+        self,
+        faiss_idx: FAISSIndex,
+        bitmap_index: BitmapIndex,
+    ) -> None:
+        self.faiss_idx = faiss_idx
+        self.bitmap_index = bitmap_index
+
+    def search(
+        self,
+        query_embedding: np.ndarray,
+        top_k: int,
+        filter_spec: FilterSpec,
+    ) -> SearchResult:
+        # ── Step 1: Bitmap resolution (µs-level) ──────────────────────────
+        t0 = time.perf_counter()
+        matching_bitmap = filter_spec.resolve_bitmap(self.bitmap_index)
+        matching_ids = np.array(matching_bitmap.to_array(), dtype=np.int64)
+        filter_ms = (time.perf_counter() - t0) * 1000
+
+        n_candidates = len(matching_ids)
+
+        if n_candidates == 0:
+            return SearchResult(
+                filter_time_ms=filter_ms,
+                search_time_ms=0.0,
+                total_time_ms=filter_ms,
+                candidates_after_filter=0,
+            )
+
+        # ── Step 2: HNSW search with IDSelector ──────────────────────────
+        t1 = time.perf_counter()
+        id_selector = faiss.IDSelectorBatch(matching_ids)
+        distances, ids = self.faiss_idx.search_hnsw(
+            query_embedding, top_k, id_selector=id_selector,
+        )
+        search_ms = (time.perf_counter() - t1) * 1000
+
+        # Map int IDs back to string IDs
+        result_ids = []
+        result_dists = []
+        for j in range(ids.shape[1]):
+            int_id = int(ids[0, j])
+            if int_id < 0:
+                continue
+            str_id = self.faiss_idx.int_to_str.get(int_id, f"unknown_{int_id}")
+            result_ids.append(str_id)
+            result_dists.append(float(1.0 - distances[0, j]))
+
+        return SearchResult(
+            ids=result_ids,
+            distances=result_dists,
+            filter_time_ms=filter_ms,
+            search_time_ms=search_ms,
+            total_time_ms=filter_ms + search_ms,
+            candidates_after_filter=n_candidates,
+        )
+

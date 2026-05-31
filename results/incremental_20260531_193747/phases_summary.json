@@ -1,0 +1,779 @@
+{
+  "timestamp": "20260531_193747",
+  "experiment": "incremental_data_growth",
+  "phases": [
+    100000,
+    200000,
+    300000,
+    400000
+  ],
+  "n_epochs_per_phase": 10,
+  "exploration_strategy": "softmax",
+  "top_k": 10,
+  "num_queries": 50,
+  "r_target": 0.93,
+  "l_max": 20.0,
+  "alpha": 0.1,
+  "results": [
+    {
+      "phase": 1,
+      "n_docs": 100000,
+      "n_docs_actual": 100000,
+      "n_filters": 30,
+      "cbo_mean_reward": 0.859387,
+      "cbo_final_crossover": 0.71,
+      "cbo_epoch_rewards": [
+        0.853327,
+        0.85979,
+        0.858472,
+        0.861874,
+        0.863541,
+        0.863994,
+        0.863432,
+        0.862779,
+        0.858841,
+        0.859387
+      ],
+      "cbo_epoch_crossovers": [
+        0.34,
+        0.61,
+        0.61,
+        0.61,
+        0.61,
+        0.61,
+        0.61,
+        0.71,
+        0.71,
+        0.71
+      ],
+      "baseline_bitmap_mean_reward": 0.337849,
+      "baseline_post_mean_reward": 0.867895,
+      "baseline_idselector_mean_reward": 0.826006,
+      "gain_vs_bitmap_pct": 154.3698,
+      "gain_vs_post_pct": -0.9803,
+      "gain_vs_idselector_pct": 4.0413,
+      "filters": [
+        {
+          "name": "brand='Sony'",
+          "target_sel": 0.05,
+          "actual_sel": 0.05025
+        },
+        {
+          "name": "main_cat IN ('Camera &amp; Photo', 'Cell Phones &amp; Accessories')",
+          "target_sel": 0.07,
+          "actual_sel": 0.07002
+        },
+        {
+          "name": "main_cat='Camera & Photo' AND overall>=3.0",
+          "target_sel": 0.09,
+          "actual_sel": 0.08972
+        },
+        {
+          "name": "main_cat IN ('Books', 'Sports & Outdoors', 'Office Products')",
+          "target_sel": 0.12,
+          "actual_sel": 0.12052
+        },
+        {
+          "name": "main_cat IN ('Computers', 'Sports & Outdoors', 'Camera &amp; Photo')",
+          "target_sel": 0.14,
+          "actual_sel": 0.1398
+        },
+        {
+          "name": "main_cat IN ('Home Audio &amp; Theater', 'Office Products')",
+          "target_sel": 0.16,
+          "actual_sel": 0.16001
+        },
+        {
+          "name": "main_cat IN ('Home Audio &amp; Theater', 'Cell Phones &amp; Accessories', 'Car Electronics')",
+          "target_sel": 0.18,
+          "actual_sel": 0.1808
+        },
+        {
+          "name": "main_cat IN ('Home Audio &amp; Theater', 'Sports & Outdoors', 'Camera &amp; Photo')",
+          "target_sel": 0.21,
+          "actual_sel": 0.21089
+        },
+        {
+          "name": "main_cat IN ('Home Audio & Theater', 'Camera &amp; Photo')",
+          "target_sel": 0.23,
+          "actual_sel": 0.23083
+        },
+        {
+          "name": "main_cat IN ('Home Audio &amp; Theater', 'Camera & Photo', 'Car Electronics')",
+          "target_sel": 0.25,
+          "actual_sel": 0.24979
+        },
+        {
+          "name": "main_cat IN ('Home Audio & Theater', 'Sports & Outdoors', 'Camera &amp; Photo')",
+          "target_sel": 0.27,
+          "actual_sel": 0.2702
+        },
+        {
+          "name": "main_cat IN ('Home Audio & Theater', 'Computers', 'Sports & Outdoors')",
+          "target_sel": 0.3,
+          "actual_sel": 0.29827
+        },
+        {
+          "name": "main_cat IN ('All Electronics', 'Computers', 'Cell Phones &amp; Accessories')",
+          "target_sel": 0.32,
+          "actual_sel": 0.31908
+        },
+        {
+          "name": "main_cat IN ('Home Audio & Theater', 'Home Audio &amp; Theater', 'Car Electronics')",
+          "target_sel": 0.34,
+          "actual_sel": 0.34161
+        },
+        {
+          "name": "main_cat IN ('All Electronics', 'Home Audio &amp; Theater', 'Cell Phones &amp; Accessories')",
+          "target_sel": 0.39,
+          "actual_sel": 0.39017
+        },
+        {
+          "name": "overall>=5.0",
+          "target_sel": 0.61,
+          "actual_sel": 0.61144
+        },
+        {
+          "name": "overall IN (2,5)",
+          "target_sel": 0.66,
+          "actual_sel": 0.65811
+        },
+        {
+          "name": "overall IN (3,5)",
+          "target_sel": 0.68,
+          "actual_sel": 0.68217
+        },
+        {
+          "name": "verified=true AND overall>=2.0",
+          "target_sel": 0.7,
+          "actual_sel": 0.70315
+        },
+        {
+          "name": "overall IN (2,3,5)",
+          "target_sel": 0.73,
+          "actual_sel": 0.72884
+        },
+        {
+          "name": "overall IN (1,2,5)",
+          "target_sel": 0.75,
+          "actual_sel": 0.75377
+        },
+        {
+          "name": "verified=true AND overall<=5.0",
+          "target_sel": 0.77,
+          "actual_sel": 0.77111
+        },
+        {
+          "name": "overall>=4.0",
+          "target_sel": 0.79,
+          "actual_sel": 0.78694
+        },
+        {
+          "name": "overall IN (1,2,3,5)",
+          "target_sel": 0.82,
+          "actual_sel": 0.8245
+        },
+        {
+          "name": "overall IN (2,4,5)",
+          "target_sel": 0.84,
+          "actual_sel": 0.83361
+        },
+        {
+          "name": "overall>=3.0",
+          "target_sel": 0.86,
+          "actual_sel": 0.85767
+        },
+        {
+          "name": "overall IN (1,4,5)",
+          "target_sel": 0.88,
+          "actual_sel": 0.8826
+        },
+        {
+          "name": "overall>=2.0",
+          "target_sel": 0.91,
+          "actual_sel": 0.90434
+        },
+        {
+          "name": "overall IN (1,2,4,5)",
+          "target_sel": 0.93,
+          "actual_sel": 0.92927
+        },
+        {
+          "name": "overall IN (1,3,4,5)",
+          "target_sel": 0.95,
+          "actual_sel": 0.95333
+        }
+      ]
+    },
+    {
+      "phase": 2,
+      "n_docs": 200000,
+      "n_docs_actual": 200000,
+      "n_filters": 30,
+      "cbo_mean_reward": 0.806454,
+      "cbo_final_crossover": 0.34,
+      "cbo_epoch_rewards": [
+        0.795127,
+        0.807529,
+        0.805936,
+        0.799469,
+        0.79733,
+        0.805483,
+        0.805991,
+        0.805937,
+        0.807801,
+        0.806454
+      ],
+      "cbo_epoch_crossovers": [
+        0.34,
+        0.34,
+        0.14,
+        0.14,
+        0.34,
+        0.34,
+        0.2,
+        0.34,
+        0.34,
+        0.34
+      ],
+      "baseline_bitmap_mean_reward": 0.166756,
+      "baseline_post_mean_reward": 0.810463,
+      "baseline_idselector_mean_reward": 0.72189,
+      "gain_vs_bitmap_pct": 383.6144,
+      "gain_vs_post_pct": -0.4946,
+      "gain_vs_idselector_pct": 11.7143,
+      "filters": [
+        {
+          "name": "main_cat IN ('Computers', 'Office Products')",
+          "target_sel": 0.05,
+          "actual_sel": 0.05003
+        },
+        {
+          "name": "brand='Tiffen'",
+          "target_sel": 0.07,
+          "actual_sel": 0.070755
+        },
+        {
+          "name": "main_cat='Home Audio &amp; Theater' AND overall>=3.0",
+          "target_sel": 0.09,
+          "actual_sel": 0.09076
+        },
+        {
+          "name": "main_cat IN ('Camera &amp; Photo', 'Computers')",
+          "target_sel": 0.12,
+          "actual_sel": 0.12083
+        },
+        {
+          "name": "main_cat IN ('Home Audio &amp; Theater', 'Sports & Outdoors', 'Office Products')",
+          "target_sel": 0.14,
+          "actual_sel": 0.14001
+        },
+        {
+          "name": "main_cat IN ('Camera & Photo', 'Sports & Outdoors', 'Office Products')",
+          "target_sel": 0.16,
+          "actual_sel": 0.16022
+        },
+        {
+          "name": "main_cat IN ('Camera & Photo', 'Computers', 'Cell Phones &amp; Accessories')",
+          "target_sel": 0.18,
+          "actual_sel": 0.178125
+        },
+        {
+          "name": "overall<=3.0",
+          "target_sel": 0.21,
+          "actual_sel": 0.210355
+        },
+        {
+          "name": "main_cat IN ('Camera & Photo', 'Camera &amp; Photo', 'Sports & Outdoors')",
+          "target_sel": 0.23,
+          "actual_sel": 0.23102
+        },
+        {
+          "name": "overall IN (3,4)",
+          "target_sel": 0.25,
+          "actual_sel": 0.249675
+        },
+        {
+          "name": "main_cat IN ('Home Audio & Theater', 'Books')",
+          "target_sel": 0.27,
+          "actual_sel": 0.269975
+        },
+        {
+          "name": "main_cat IN ('All Electronics', 'Computers', 'Sports & Outdoors')",
+          "target_sel": 0.3,
+          "actual_sel": 0.3009
+        },
+        {
+          "name": "overall IN (1,2,4)",
+          "target_sel": 0.32,
+          "actual_sel": 0.31878
+        },
+        {
+          "name": "main_cat IN ('All Electronics', 'Camera &amp; Photo', 'Musical Instruments')",
+          "target_sel": 0.34,
+          "actual_sel": 0.340115
+        },
+        {
+          "name": "overall<=4.0",
+          "target_sel": 0.39,
+          "actual_sel": 0.389405
+        },
+        {
+          "name": "overall>=5.0",
+          "target_sel": 0.61,
+          "actual_sel": 0.610595
+        },
+        {
+          "name": "verified=true AND overall>=3.0",
+          "target_sel": 0.66,
+          "actual_sel": 0.658305
+        },
+        {
+          "name": "overall IN (3,5)",
+          "target_sel": 0.68,
+          "actual_sel": 0.68122
+        },
+        {
+          "name": "overall IN (1,5)",
+          "target_sel": 0.7,
+          "actual_sel": 0.70283
+        },
+        {
+          "name": "overall IN (2,3,5)",
+          "target_sel": 0.73,
+          "actual_sel": 0.728715
+        },
+        {
+          "name": "overall IN (1,2,5)",
+          "target_sel": 0.75,
+          "actual_sel": 0.750325
+        },
+        {
+          "name": "overall IN (1,3,5)",
+          "target_sel": 0.77,
+          "actual_sel": 0.773455
+        },
+        {
+          "name": "overall>=4.0",
+          "target_sel": 0.79,
+          "actual_sel": 0.789645
+        },
+        {
+          "name": "overall IN (1,2,3,5)",
+          "target_sel": 0.82,
+          "actual_sel": 0.82095
+        },
+        {
+          "name": "overall IN (2,4,5)",
+          "target_sel": 0.84,
+          "actual_sel": 0.83714
+        },
+        {
+          "name": "overall>=3.0",
+          "target_sel": 0.86,
+          "actual_sel": 0.86027
+        },
+        {
+          "name": "overall IN (1,4,5)",
+          "target_sel": 0.88,
+          "actual_sel": 0.88188
+        },
+        {
+          "name": "overall>=2.0",
+          "target_sel": 0.91,
+          "actual_sel": 0.907765
+        },
+        {
+          "name": "overall IN (1,2,4,5)",
+          "target_sel": 0.93,
+          "actual_sel": 0.929375
+        },
+        {
+          "name": "overall IN (1,3,4,5)",
+          "target_sel": 0.95,
+          "actual_sel": 0.952505
+        }
+      ]
+    },
+    {
+      "phase": 3,
+      "n_docs": 300000,
+      "n_docs_actual": 300000,
+      "n_filters": 30,
+      "cbo_mean_reward": 0.684708,
+      "cbo_final_crossover": 0.12,
+      "cbo_epoch_rewards": [
+        0.672548,
+        0.676607,
+        0.677847,
+        0.669369,
+        0.673714,
+        0.679559,
+        0.682983,
+        0.683371,
+        0.683277,
+        0.684708
+      ],
+      "cbo_epoch_crossovers": [
+        0.12,
+        0.12,
+        0.12,
+        0.34,
+        0.12,
+        0.12,
+        0.12,
+        0.12,
+        0.12,
+        0.12
+      ],
+      "baseline_bitmap_mean_reward": 0.103269,
+      "baseline_post_mean_reward": 0.690664,
+      "baseline_idselector_mean_reward": 0.620763,
+      "gain_vs_bitmap_pct": 563.0323,
+      "gain_vs_post_pct": -0.8623,
+      "gain_vs_idselector_pct": 10.3011,
+      "filters": [
+        {
+          "name": "main_cat='Camera &amp; Photo' AND overall>=5.0",
+          "target_sel": 0.05,
+          "actual_sel": 0.047503333333333335
+        },
+        {
+          "name": "main_cat='Home Audio &amp; Theater' AND overall>=5.0",
+          "target_sel": 0.07,
+          "actual_sel": 0.06887666666666667
+        },
+        {
+          "name": "main_cat IN ('Camera &amp; Photo', 'Books')",
+          "target_sel": 0.09,
+          "actual_sel": 0.09039333333333334
+        },
+        {
+          "name": "main_cat IN ('Home Audio &amp; Theater', 'Car Electronics')",
+          "target_sel": 0.12,
+          "actual_sel": 0.12118666666666666
+        },
+        {
+          "name": "main_cat IN ('Home Audio &amp; Theater', 'Books', 'Car Electronics')",
+          "target_sel": 0.14,
+          "actual_sel": 0.14001333333333332
+        },
+        {
+          "name": "main_cat='All Electronics' AND overall>=5.0",
+          "target_sel": 0.16,
+          "actual_sel": 0.16034
+        },
+        {
+          "name": "main_cat IN ('Camera & Photo', 'Camera &amp; Photo')",
+          "target_sel": 0.18,
+          "actual_sel": 0.17914
+        },
+        {
+          "name": "overall<=3.0",
+          "target_sel": 0.21,
+          "actual_sel": 0.21295333333333333
+        },
+        {
+          "name": "main_cat IN ('Home Audio &amp; Theater', 'Camera & Photo', 'Car Electronics')",
+          "target_sel": 0.23,
+          "actual_sel": 0.22876
+        },
+        {
+          "name": "main_cat IN ('Home Audio & Theater', 'Office Products')",
+          "target_sel": 0.25,
+          "actual_sel": 0.25050333333333336
+        },
+        {
+          "name": "main_cat IN ('Home Audio & Theater', 'Books', 'Sports & Outdoors')",
+          "target_sel": 0.27,
+          "actual_sel": 0.26975333333333334
+        },
+        {
+          "name": "main_cat IN ('All Electronics', 'Sports & Outdoors', 'Office Products')",
+          "target_sel": 0.3,
+          "actual_sel": 0.2995366666666667
+        },
+        {
+          "name": "main_cat IN ('All Electronics', 'Musical Instruments', 'Car Electronics')",
+          "target_sel": 0.32,
+          "actual_sel": 0.32022
+        },
+        {
+          "name": "overall IN (1,3,4)",
+          "target_sel": 0.34,
+          "actual_sel": 0.33972
+        },
+        {
+          "name": "main_cat IN ('All Electronics', 'Camera & Photo', 'Office Products')",
+          "target_sel": 0.39,
+          "actual_sel": 0.39025666666666664
+        },
+        {
+          "name": "main_cat IN ('All Electronics', 'Home Audio & Theater', 'Home Audio &amp; Theater')",
+          "target_sel": 0.61,
+          "actual_sel": 0.6108166666666667
+        },
+        {
+          "name": "overall IN (2,5)",
+          "target_sel": 0.66,
+          "actual_sel": 0.66028
+        },
+        {
+          "name": "overall IN (3,5)",
+          "target_sel": 0.68,
+          "actual_sel": 0.6828266666666667
+        },
+        {
+          "name": "verified=true AND overall>=2.0",
+          "target_sel": 0.7,
+          "actual_sel": 0.7007733333333334
+        },
+        {
+          "name": "overall IN (2,3,5)",
+          "target_sel": 0.73,
+          "actual_sel": 0.7306966666666667
+        },
+        {
+          "name": "overall IN (1,2,5)",
+          "target_sel": 0.75,
+          "actual_sel": 0.7549466666666667
+        },
+        {
+          "name": "verified=true AND overall<=5.0",
+          "target_sel": 0.77,
+          "actual_sel": 0.7633533333333333
+        },
+        {
+          "name": "overall>=4.0",
+          "target_sel": 0.79,
+          "actual_sel": 0.7870466666666667
+        },
+        {
+          "name": "overall IN (1,2,3,5)",
+          "target_sel": 0.82,
+          "actual_sel": 0.8253633333333333
+        },
+        {
+          "name": "overall IN (2,4,5)",
+          "target_sel": 0.84,
+          "actual_sel": 0.8349166666666666
+        },
+        {
+          "name": "overall>=3.0",
+          "target_sel": 0.86,
+          "actual_sel": 0.8574633333333334
+        },
+        {
+          "name": "overall IN (1,4,5)",
+          "target_sel": 0.88,
+          "actual_sel": 0.8817133333333333
+        },
+        {
+          "name": "overall>=2.0",
+          "target_sel": 0.91,
+          "actual_sel": 0.9053333333333333
+        },
+        {
+          "name": "overall IN (1,2,4,5)",
+          "target_sel": 0.93,
+          "actual_sel": 0.9295833333333333
+        },
+        {
+          "name": "overall IN (1,3,4,5)",
+          "target_sel": 0.95,
+          "actual_sel": 0.95213
+        }
+      ]
+    },
+    {
+      "phase": 4,
+      "n_docs": 388058,
+      "n_docs_actual": 388058,
+      "n_filters": 30,
+      "cbo_mean_reward": 0.682008,
+      "cbo_final_crossover": 0.1,
+      "cbo_epoch_rewards": [
+        0.662295,
+        0.67339,
+        0.674931,
+        0.673194,
+        0.677547,
+        0.680298,
+        0.674262,
+        0.668874,
+        0.677159,
+        0.682008
+      ],
+      "cbo_epoch_crossovers": [
+        0.1,
+        0.1,
+        0.26,
+        0.16,
+        0.16,
+        0.12,
+        0.12,
+        0.1,
+        0.1,
+        0.1
+      ],
+      "baseline_bitmap_mean_reward": 0.0558,
+      "baseline_post_mean_reward": 0.67429,
+      "baseline_idselector_mean_reward": 0.5721,
+      "gain_vs_bitmap_pct": 1122.2415,
+      "gain_vs_post_pct": 1.1446,
+      "gain_vs_idselector_pct": 19.2112,
+      "filters": [
+        {
+          "name": "main_cat IN ('Computers', 'Cell Phones &amp; Accessories')",
+          "target_sel": 0.05,
+          "actual_sel": 0.050111065871596513
+        },
+        {
+          "name": "verified=false AND overall<=3.0",
+          "target_sel": 0.07,
+          "actual_sel": 0.07128315870308047
+        },
+        {
+          "name": "main_cat IN ('Camera &amp; Photo', 'Car Electronics')",
+          "target_sel": 0.09,
+          "actual_sel": 0.09240886671580022
+        },
+        {
+          "name": "verified=false AND overall<=4.0",
+          "target_sel": 0.12,
+          "actual_sel": 0.11954398569286034
+        },
+        {
+          "name": "main_cat IN ('Camera & Photo', 'Car Electronics')",
+          "target_sel": 0.14,
+          "actual_sel": 0.1412185807276232
+        },
+        {
+          "name": "main_cat IN ('Home Audio &amp; Theater', 'Computers', 'Cell Phones &amp; Accessories')",
+          "target_sel": 0.16,
+          "actual_sel": 0.1600430863427632
+        },
+        {
+          "name": "main_cat IN ('Camera & Photo', 'Computers', 'Car Electronics')",
+          "target_sel": 0.18,
+          "actual_sel": 0.18038025243649145
+        },
+        {
+          "name": "main_cat IN ('Camera & Photo', 'Camera &amp; Photo')",
+          "target_sel": 0.21,
+          "actual_sel": 0.21242443139942999
+        },
+        {
+          "name": "main_cat IN ('Home Audio &amp; Theater', 'Camera &amp; Photo', 'Computers')",
+          "target_sel": 0.23,
+          "actual_sel": 0.23090105087383844
+        },
+        {
+          "name": "main_cat IN ('Camera & Photo', 'Home Audio &amp; Theater', 'Car Electronics')",
+          "target_sel": 0.25,
+          "actual_sel": 0.25115060119878985
+        },
+        {
+          "name": "main_cat IN ('Home Audio & Theater', 'Computers')",
+          "target_sel": 0.27,
+          "actual_sel": 0.27079972581418243
+        },
+        {
+          "name": "main_cat IN ('All Electronics', 'Books', 'Sports & Outdoors')",
+          "target_sel": 0.3,
+          "actual_sel": 0.29923877358539186
+        },
+        {
+          "name": "main_cat IN ('All Electronics', 'Musical Instruments', 'Books')",
+          "target_sel": 0.32,
+          "actual_sel": 0.3201815192574306
+        },
+        {
+          "name": "main_cat IN ('Home Audio & Theater', 'Home Audio &amp; Theater')",
+          "target_sel": 0.34,
+          "actual_sel": 0.3415700745764808
+        },
+        {
+          "name": "main_cat IN ('All Electronics', 'Home Audio &amp; Theater', 'Car Electronics')",
+          "target_sel": 0.39,
+          "actual_sel": 0.39191821841064994
+        },
+        {
+          "name": "verified=true AND overall>=4.0",
+          "target_sel": 0.61,
+          "actual_sel": 0.6083420519613048
+        },
+        {
+          "name": "verified=true AND overall>=3.0",
+          "target_sel": 0.66,
+          "actual_sel": 0.661341861268161
+        },
+        {
+          "name": "overall IN (3,5)",
+          "target_sel": 0.68,
+          "actual_sel": 0.6753139994536899
+        },
+        {
+          "name": "overall IN (1,5)",
+          "target_sel": 0.7,
+          "actual_sel": 0.7012894979616449
+        },
+        {
+          "name": "overall IN (2,3,5)",
+          "target_sel": 0.73,
+          "actual_sel": 0.7258528364316674
+        },
+        {
+          "name": "overall IN (1,2,5)",
+          "target_sel": 0.75,
+          "actual_sel": 0.7518283349396224
+        },
+        {
+          "name": "overall IN (1,3,5)",
+          "target_sel": 0.77,
+          "actual_sel": 0.7736833153806905
+        },
+        {
+          "name": "overall>=4.0",
+          "target_sel": 0.79,
+          "actual_sel": 0.7786980296759762
+        },
+        {
+          "name": "overall IN (1,2,3,5)",
+          "target_sel": 0.82,
+          "actual_sel": 0.824222152358668
+        },
+        {
+          "name": "overall IN (2,4,5)",
+          "target_sel": 0.84,
+          "actual_sel": 0.8292368666539538
+        },
+        {
+          "name": "overall>=3.0",
+          "target_sel": 0.86,
+          "actual_sel": 0.8510918470950218
+        },
+        {
+          "name": "overall IN (1,4,5)",
+          "target_sel": 0.88,
+          "actual_sel": 0.8770673456029768
+        },
+        {
+          "name": "overall>=2.0",
+          "target_sel": 0.91,
+          "actual_sel": 0.9016306840729994
+        },
+        {
+          "name": "overall IN (1,2,4,5)",
+          "target_sel": 0.93,
+          "actual_sel": 0.9276061825809544
+        },
+        {
+          "name": "overall IN (1,3,4,5)",
+          "target_sel": 0.95,
+          "actual_sel": 0.9494611630220224
+        }
+      ]
+    }
+  ]
+}

@@ -41,8 +41,10 @@ COLORS = {
     "cbo": "#2196F3",
     "bitmap": "#FF5722",
     "post": "#4CAF50",
+    "idselector": "#9C27B0",
     "gain_bitmap": "#FF9800",
-    "gain_post": "#9C27B0",
+    "gain_post": "#4CAF50",
+    "gain_idselector": "#9C27B0",
     "heatmap_bitmap": "#1565C0",
     "heatmap_post": "#C62828",
 }
@@ -117,6 +119,7 @@ def plot_reward_comparison(phases_data: List[Dict], plots_dir: Path) -> None:
     cbo_rewards = [p["cbo_mean_reward"] for p in phases_data]
     bitmap_rewards = [p["baseline_bitmap_mean_reward"] for p in phases_data]
     post_rewards = [p["baseline_post_mean_reward"] for p in phases_data]
+    idselector_rewards = [p.get("baseline_idselector_mean_reward", 0) for p in phases_data]
 
     ax.plot(
         x_pos, cbo_rewards, "o-",
@@ -126,12 +129,17 @@ def plot_reward_comparison(phases_data: List[Dict], plots_dir: Path) -> None:
     ax.plot(
         x_pos, bitmap_rewards, "s--",
         color=COLORS["bitmap"], linewidth=2, markersize=8,
-        label="Always BitmapPreFilter", alpha=0.85,
+        label="Always BitmapPreFilter (Brute-Force)", alpha=0.85,
     )
     ax.plot(
         x_pos, post_rewards, "^--",
         color=COLORS["post"], linewidth=2, markersize=8,
         label="Always PostFilter", alpha=0.85,
+    )
+    ax.plot(
+        x_pos, idselector_rewards, "D--",
+        color=COLORS["idselector"], linewidth=2, markersize=8,
+        label="Always IDSelector (HNSW)", alpha=0.85,
     )
 
     ax.set_xticks(list(x_pos))
@@ -158,24 +166,30 @@ def plot_gain_bars(phases_data: List[Dict], plots_dir: Path) -> None:
     n_docs = [p["n_docs"] for p in phases_data]
     x_labels = [f"{d // 1000}k" for d in n_docs]
     x = np.arange(len(n_docs))
-    width = 0.35
+    width = 0.25
 
     gains_bitmap = [p["gain_vs_bitmap_pct"] for p in phases_data]
     gains_post = [p["gain_vs_post_pct"] for p in phases_data]
+    gains_idselector = [p.get("gain_vs_idselector_pct", 0) for p in phases_data]
 
     bars1 = ax.bar(
-        x - width / 2, gains_bitmap, width,
-        label="Gain vs Always-Bitmap",
+        x - width, gains_bitmap, width,
+        label="Gain vs Always-Bitmap (BF)",
         color=COLORS["gain_bitmap"], edgecolor="white",
     )
     bars2 = ax.bar(
-        x + width / 2, gains_post, width,
+        x, gains_post, width,
         label="Gain vs Always-PostFilter",
         color=COLORS["gain_post"], edgecolor="white",
     )
+    bars3 = ax.bar(
+        x + width, gains_idselector, width,
+        label="Gain vs Always-IDSelector (HNSW)",
+        color=COLORS["gain_idselector"], edgecolor="white",
+    )
 
     # Value labels on bars
-    for bars in [bars1, bars2]:
+    for bars in [bars1, bars2, bars3]:
         for bar in bars:
             height = bar.get_height()
             sign = "+" if height >= 0 else ""

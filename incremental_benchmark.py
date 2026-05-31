@@ -34,7 +34,7 @@ import config
 from bitmap_index import BitmapIndex
 from faiss_index import FAISSIndex
 from filters import FilterSpec, generate_filters
-from strategies import BitmapPreFilter, BruteForce, PostFilter
+from strategies import BitmapPreFilter, BitmapHNSWPreFilter, BruteForce, PostFilter
 
 from cbo import (
     ContextualBanditOptimizer,
@@ -84,10 +84,12 @@ class PhaseResult:
     # Baseline results
     baseline_bitmap_mean_reward: float
     baseline_post_mean_reward: float
+    baseline_idselector_mean_reward: float
 
     # Gains
     gain_vs_bitmap_pct: float
     gain_vs_post_pct: float
+    gain_vs_idselector_pct: float
 
     # Q-table snapshot
     qtable_snapshot: List[Dict]
@@ -138,6 +140,7 @@ def _precompute_results(
     strategies = {
         "post_filter": PostFilter(faiss_idx, all_metadatas),
         "bitmap_prefilter": BitmapPreFilter(faiss_idx, bitmap_idx),
+        "bitmap_hnsw_prefilter": BitmapHNSWPreFilter(faiss_idx, bitmap_idx),
     }
     brute_force = BruteForce(faiss_idx, all_metadatas)
     reward_fn = SoftCliffReward()
@@ -183,11 +186,19 @@ def _precompute_results(
             )
             cache["bitmap_prefilter"][f_idx][q_idx] = (bp_result.total_time_ms, bp_recall)
 
-            # Oracle
+            # BitmapHNSWPreFilter (IDSelector)
+            bh_result = strategies["bitmap_hnsw_prefilter"].search(qvec, top_k, fspec)
+            bh_recall = (
+                len(set(ref_ids) & set(bh_result.ids)) / len(ref_ids)
+                if ref_ids else 1.0
+            )
+            cache["bitmap_hnsw_prefilter"][f_idx][q_idx] = (bh_result.total_time_ms, bh_recall)
+
+            # Oracle (IDSelector vs PostFilter — the two CBO arms)
             pf_rew = reward_fn.compute(pf_result.total_time_ms, pf_recall)
-            bp_rew = reward_fn.compute(bp_result.total_time_ms, bp_recall)
-            if bp_rew >= pf_rew:
-                oracle[f_idx][q_idx] = ("bitmap_prefilter", bp_rew)
+            bh_rew = reward_fn.compute(bh_result.total_time_ms, bh_recall)
+            if bh_rew >= pf_rew:
+                oracle[f_idx][q_idx] = ("bitmap_prefilter", bh_rew)
             else:
                 oracle[f_idx][q_idx] = ("post_filter", pf_rew)
 
@@ -319,7 +330,10 @@ def run_incremental_benchmark() -> None:
         baseline_post = _compute_baseline_reward(
             cache, "post_filter", filters, NUM_QUERIES
         )
-        print(f"  Baselines: Always-Bitmap={baseline_bitmap:.4f}  Always-Post={baseline_post:.4f}")
+        baseline_idselector = _compute_baseline_reward(
+            cache, "bitmap_hnsw_prefilter", filters, NUM_QUERIES
+        )
+        print(f"  Baselines: Always-Bitmap={baseline_bitmap:.4f}  Always-Post={baseline_post:.4f}  Always-IDSelector={baseline_idselector:.4f}")
 
         # ── Reset step counter (fresh decay each phase) ───────────────────
         optimizer._step_counter = 0
@@ -343,7 +357,11 @@ def run_incremental_benchmark() -> None:
                 q_vals = optimizer.qtable.get_q_values(selectivity)
 
                 strategy_name, was_guardrail = optimizer.route(selectivity)
-                latency_ms, recall = cache[strategy_name][f_idx][q_idx]
+
+                # CBO internally uses "bitmap_prefilter" / "post_filter"
+                # but we want the prefilter arm to use IDSelector (HNSW)
+                cache_key = "bitmap_hnsw_prefilter" if strategy_name == "bitmap_prefilter" else strategy_name
+                latency_ms, recall = cache[cache_key][f_idx][q_idx]
                 reward = optimizer.feedback(selectivity, strategy_name, latency_ms, recall)
 
                 oracle_strat, oracle_rew = oracle[f_idx][q_idx]
@@ -390,12 +408,17 @@ def run_incremental_benchmark() -> None:
             (final_cbo_reward - baseline_post) / baseline_post * 100
             if baseline_post > 0 else 0.0
         )
+        gain_idselector = (
+            (final_cbo_reward - baseline_idselector) / baseline_idselector * 100
+            if baseline_idselector > 0 else 0.0
+        )
 
         print(f"\n  Phase {phase_num} Summary:")
         print(f"    CBO Reward (last epoch): {final_cbo_reward:.4f}")
         print(f"    Crossover:               {epoch_crossovers[-1]}")
         print(f"    Gain vs Bitmap:          {gain_bitmap:+.2f}%")
         print(f"    Gain vs PostFilter:      {gain_post:+.2f}%")
+        print(f"    Gain vs IDSelector:      {gain_idselector:+.2f}%")
 
         # ── Save phase result ─────────────────────────────────────────────
         phase_results.append(PhaseResult(
@@ -411,8 +434,10 @@ def run_incremental_benchmark() -> None:
             cbo_epoch_crossovers=epoch_crossovers,
             baseline_bitmap_mean_reward=baseline_bitmap,
             baseline_post_mean_reward=baseline_post,
+            baseline_idselector_mean_reward=baseline_idselector,
             gain_vs_bitmap_pct=gain_bitmap,
             gain_vs_post_pct=gain_post,
+            gain_vs_idselector_pct=gain_idselector,
             qtable_snapshot=optimizer.get_q_snapshot(),
             filters_info=[
                 {
@@ -456,8 +481,10 @@ def run_incremental_benchmark() -> None:
                 "cbo_epoch_crossovers": pr.cbo_epoch_crossovers,
                 "baseline_bitmap_mean_reward": round(pr.baseline_bitmap_mean_reward, 6),
                 "baseline_post_mean_reward": round(pr.baseline_post_mean_reward, 6),
+                "baseline_idselector_mean_reward": round(pr.baseline_idselector_mean_reward, 6),
                 "gain_vs_bitmap_pct": round(pr.gain_vs_bitmap_pct, 4),
                 "gain_vs_post_pct": round(pr.gain_vs_post_pct, 4),
+                "gain_vs_idselector_pct": round(pr.gain_vs_idselector_pct, 4),
                 "filters": pr.filters_info,
             }
             for pr in phase_results
@@ -472,8 +499,8 @@ def run_incremental_benchmark() -> None:
         writer = csv.writer(f)
         writer.writerow([
             "phase", "n_docs", "cbo_reward", "crossover",
-            "bitmap_reward", "post_reward",
-            "gain_vs_bitmap_pct", "gain_vs_post_pct",
+            "bitmap_reward", "post_reward", "idselector_reward",
+            "gain_vs_bitmap_pct", "gain_vs_post_pct", "gain_vs_idselector_pct",
         ])
         for pr in phase_results:
             writer.writerow([
@@ -482,8 +509,10 @@ def run_incremental_benchmark() -> None:
                 pr.cbo_final_crossover,
                 round(pr.baseline_bitmap_mean_reward, 6),
                 round(pr.baseline_post_mean_reward, 6),
+                round(pr.baseline_idselector_mean_reward, 6),
                 round(pr.gain_vs_bitmap_pct, 4),
                 round(pr.gain_vs_post_pct, 4),
+                round(pr.gain_vs_idselector_pct, 4),
             ])
     logger.info("Saved phases_summary.csv")
 
@@ -513,14 +542,16 @@ def run_incremental_benchmark() -> None:
     print(f"{'=' * 70}")
 
     # ── Final summary table ───────────────────────────────────────────────
-    print(f"\n  {'Phase':>5} {'Docs':>8} {'CBO':>8} {'Bitmap':>8} {'Post':>8} {'Gain/BM':>8} {'Gain/PF':>8} {'Crossover':>10}")
-    print(f"  {'─' * 5} {'─' * 8} {'─' * 8} {'─' * 8} {'─' * 8} {'─' * 8} {'─' * 8} {'─' * 10}")
+    print(f"\n  {'Phase':>5} {'Docs':>8} {'CBO':>8} {'Bitmap':>8} {'Post':>8} {'IDSel':>8} {'G/BM':>8} {'G/PF':>8} {'G/IDS':>8} {'Xover':>10}")
+    print(f"  {'─' * 5} {'─' * 8} {'─' * 8} {'─' * 8} {'─' * 8} {'─' * 8} {'─' * 8} {'─' * 8} {'─' * 8} {'─' * 10}")
     for pr in phase_results:
         xo_str = f"{pr.cbo_final_crossover:.4f}" if pr.cbo_final_crossover else "N/A"
         print(
             f"  {pr.phase:>5} {pr.n_docs:>8,} {pr.cbo_mean_reward:>8.4f} "
             f"{pr.baseline_bitmap_mean_reward:>8.4f} {pr.baseline_post_mean_reward:>8.4f} "
-            f"{pr.gain_vs_bitmap_pct:>+7.2f}% {pr.gain_vs_post_pct:>+7.2f}% {xo_str:>10}"
+            f"{pr.baseline_idselector_mean_reward:>8.4f} "
+            f"{pr.gain_vs_bitmap_pct:>+7.2f}% {pr.gain_vs_post_pct:>+7.2f}% "
+            f"{pr.gain_vs_idselector_pct:>+7.2f}% {xo_str:>10}"
         )
 
     # ── Generate visualizations ───────────────────────────────────────────
