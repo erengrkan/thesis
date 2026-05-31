@@ -21,7 +21,7 @@ RESULTS_DIR = Path("/Users/erengurkan/jobs/thesis/faiss_bench/results")
 
 # ── Ingestion ──────────────────────────────────────────────────────────────────
 BATCH_SIZE     = 512            # Embedding batch boyutu
-MAX_DOCUMENTS  = 200_000        # PoC sınırı  (None → tam dataset)
+MAX_DOCUMENTS  = 400_000        # Incremental growth experiment (400k max)
 TEXT_MAX_CHARS = 512            # Metin kırpma (embedding verimliliği)
 
 # ── Embedder ───────────────────────────────────────────────────────────────────
